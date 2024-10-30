@@ -3,44 +3,19 @@ import { URLs } from "../../utils/urls";
 
 export class AccountPage {
   readonly page: Page;
-  readonly userNameField: Locator;
-  readonly passwordField: Locator;
-  readonly loginButton: Locator;
-  readonly messagePanel: Locator;
-  readonly signUpLink: Locator;
+  readonly logoutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    this.userNameField = page.locator("#username");
-    this.passwordField = page.locator("#password");
-    this.loginButton = page.locator('input[value="Login"]');
-    this.messagePanel = page.locator("#errorMessage");
-    this.signUpLink = page.locator('a[href="#"]:text("Sign up")');
-  }
-
-  async open() {
-    await this.page.goto(URLs.login);
-    await this.page.waitForURL("**/login.html");
+    this.logoutButton = page.getByRole("button", { name: "Logout" });
   }
 
   async isPresent() {
-    this.userNameField.isEditable();
-    this.passwordField.isEditable();
-    this.loginButton.isVisible();
-    this.signUpLink.isVisible();
+    this.logoutButton.isVisible();
   }
 
-  async fillUserName(userName: string) {
-    await this.userNameField.fill(userName);
-  }
-  async fillPassword(password: string) {
-    await this.passwordField.fill(password);
-  }
-
-  async doLogin(userName: string, password: string) {
-    await this.fillUserName(userName);
-    await this.fillPassword(password);
-    await this.loginButton.click();
+  async clickLogout() {
+    await this.logoutButton.click();
   }
 }
 
