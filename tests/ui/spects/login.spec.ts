@@ -5,11 +5,10 @@ const password = process.env.PASSWORD!;
 
 test.beforeEach(async ({ loginPage }) => {
   await loginPage.open();
-  await loginPage.isPresent();
 });
 
-test.describe("Test Case 3 ", () => {
-  test("@smoke - Test Case 3 should login in to the app", async ({
+test.describe("User Login Flow ", () => {
+  test("@smoke - Test Case 3: should log in to the app and load account page", async ({
     loginPage,
     accountPage,
   }) => {

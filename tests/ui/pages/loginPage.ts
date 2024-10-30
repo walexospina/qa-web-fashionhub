@@ -21,6 +21,7 @@ export class LoginPage {
   async open() {
     await this.page.goto(URLs.login);
     await this.page.waitForURL("**/login.html");
+    await this.isPresent();
   }
 
   async isPresent() {
