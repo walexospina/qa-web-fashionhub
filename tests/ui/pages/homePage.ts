@@ -23,6 +23,36 @@ export class HomePage {
     this.featuresSection.isVisible();
     this.shopNowLink.isVisible();
   }
+
+  //   async checkStatusCode(page, url: string) {
+  //     await page.route(url, async (route) => {
+  //       const response = await route.fetch();
+  //       const status = response.status();
+
+  //       if (status >= 400) {
+  //         console.error(`❌ Failed URL: ${url} with status: ${status}`);
+  //         throw new Error(
+  //           `Unexpected 40x status code: ${status} for URL: ${url}`
+  //         );
+  //       } else {
+  //         console.log(`✅ URL passed: ${url} with status: ${status}`);
+  //       }
+  //       await route.continue();
+  //     });
+  //     await page.goto(url);
+  //   }
+
+  async checkStatusCode(page, url: string) {
+    const response = await page.request.fetch(url);
+    const status = response.status();
+
+    if (status >= 400) {
+      console.error(`❌ Failed URL: ${url} with status: ${status}`);
+      throw new Error(`Unexpected 40x status code: ${status} for URL: ${url}`);
+    } else {
+      console.log(`✅ URL passed: ${url} with status: ${status}`);
+    }
+  }
 }
 
 export default HomePage;
