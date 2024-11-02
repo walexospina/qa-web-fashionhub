@@ -1,4 +1,3 @@
-import { expect } from "@playwright/test";
 import { test } from "../fixtures/basePages"; // Asegúrate de importar tu fixture
 
 test.describe("Link Status Verification via API", () => {

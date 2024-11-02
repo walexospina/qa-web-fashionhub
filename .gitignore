@@ -5,6 +5,9 @@ node_modules/
 /playwright/.cache/
 .local-browsers/
 .env
+.env.production
+.env.staging
+.env.local
 /tests/installation/output/
 /tests/installation/.registry.json
 .cache/

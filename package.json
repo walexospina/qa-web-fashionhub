@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "qa-web-fashionhub",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+  "start": "docker run -d -p 4000:4000 pocketaces2/fashionhub-demo-app:latest",
+  "stop-docker": "docker stop $(docker ps -q --filter ancestor=pocketaces2/fashionhub-demo-app:latest)",
+  "test:local": "NODE_ENV=local npx playwright test",
+  "test:sequence": "npm run start && npm run test:local && npm run stop-docker",
+  "test:prod": "NODE_ENV=production npx playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.48.2",
     "@types/node": "^22.8.2",
-     "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5"
   }
 }

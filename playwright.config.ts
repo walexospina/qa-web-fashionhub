@@ -9,7 +9,7 @@ const envFile =
     ? ".env.staging"
     : process.env.NODE_ENV === "production"
     ? ".env.production"
-    : ".env.development";
+    : ".env.local";
 
 dotenv.config({ path: path.resolve(__dirname, envFile) });
 
@@ -59,8 +59,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
+  //   command: "npm run start",
+  //   url: "http://127.0.0.1:4000",
   //   reuseExistingServer: !process.env.CI,
   // },
 });
