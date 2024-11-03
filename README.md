@@ -1,4 +1,4 @@
-# qa-web-fashionhub
+# fashionhub Testing Framework
 
 This project performs automated testing using Playwright for the FashionHub application.
 
@@ -6,20 +6,31 @@ This project performs automated testing using Playwright for the FashionHub appl
 
 Ensure the following are installed on your local machine:
 
-Node.js and npm: for managing dependencies and running scripts.
-Docker: for running the FashionHub application in a container install this [Docker image](https://hub.docker.com/r/pocketaces2/fashionhub-demo-app)
+**Node.js and npm**: for managing dependencies and running scripts.
+**Docker**: for running the FashionHub application in a container install this [Docker image](https://hub.docker.com/r/pocketaces2/fashionhub-demo-app)
 
 ## Installation
 
-Clone the repository
+1. Clone the repository into a folder.
+2. Go to the project root directory and install dependencies:
+   `npm install`
 
-### Install project dependencies:
+All the dependencies from package.json would be installed in node_modules folder.
 
-`npm install`
+## Setup the environment variables:
 
-### Setup the environment variables:
+This project supports multiple environments, each with its specific configuration. Here’s a guide to configuring these variables for local, staging, and production environments:
 
-This project uses different environments with specific configurations for local, staging, and production. Configure the environment variables by creating the following .env files:
+1. Create .env files for each environment: These files store environment-specific settings and should be created in the project root directory.
+
+2. Define variables for each environment:
+
+`.env`: For global settings that don’t change between environments.
+`.env.local`: Settings specific to local development. This is used when running tests locally.
+`.env.staging`: Settings for the staging environment, useful for testing in an environment similar to production.
+`.env.production`: Settings for production deployment.
+
+3. **_Sample Variables_** : Add the following variables based on your environment:
 
 `.env`
 
@@ -32,14 +43,27 @@ PASSWORD='PASSWORD'
 `.env.local:`
 
 ```
-BASE_URL=http://localhost:4000..
+BASE_URL=http://localhost:4000/fashionhub/
+```
+
+`.env.staging:`
+
+```
+BASE_URL=http://staging.yourdomain.com/fashionhub/
 ```
 
 `.env.production:`
 
 ```
-BASE_URL=FASHION_HUB_URL
+BASE_URL=https://yourdomain.com/fashionhub/
 ```
+
+4. Using Environment Variables:
+
+The `NODE_ENV` environment variable determines which environment file is used when running tests.
+For example, running `npm run test:local` loads `.env.local` settings, while `npm run test:prod` loads .`env.production`.
+
+**Note**: .env, .env.local, .env.staging and .env.production are listed in .gitignore to keep sensitive production data secure.
 
 ## Available Scripts
 
@@ -47,11 +71,11 @@ BASE_URL=FASHION_HUB_URL
 
 To run tests locally, follow these steps:
 
-Ensure no previous containers of the application are running. You can stop existing containers with:
+1. Ensure no previous containers of the application are running. You can stop existing containers with:
 
 `docker stop $(docker ps -q --filter ancestor=pocketaces2/fashionhub-demo-app:latest)`
 
-To start the Docker container, run the tests, and stop the container afterward, use the command:
+2. To start the Docker container, run the tests, and stop the container afterward, use the command:
 
 `npm run test:sequence`
 
@@ -67,7 +91,11 @@ To run tests without starting the Docker container, use the following command:
 
 ```
 npm run test:prod
-or
+```
+
+Or directly with Playwright:
+
+```
 NODE_ENV=production npx playwright test
 ```
 
@@ -80,7 +108,7 @@ playwright.config.js: Playwright configuration for managing environments, browse
 
 ## Additional Notes
 
-Environment Variables: Ensure necessary environment variables are set up for NODE_ENV and other parameters specific to Playwright and your application.
+**Environment Variables**: Ensure necessary environment variables are set up for NODE_ENV and other parameters specific to Playwright and your application.
 
 ## Troubleshooting
 
