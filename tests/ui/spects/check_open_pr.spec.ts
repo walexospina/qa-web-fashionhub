@@ -15,7 +15,9 @@ test("@api Test Case 4 Fetch open pull requests and save to CSV", async ({
       .join("\n");
 
   const filePath = path.join("test-results", "open_pull_requests.csv");
+
   fs.writeFileSync(filePath, csvContent);
+  console.log(`CSV file saved at: ${filePath}`);
 
   expect(pullRequests.length).toBeGreaterThan(0);
 });
