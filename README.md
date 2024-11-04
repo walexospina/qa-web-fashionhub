@@ -19,49 +19,42 @@ All the dependencies from package.json would be installed in node_modules folder
 
 ## Setup the environment variables:
 
-This project supports multiple environments, each with its specific configuration. Here’s a guide to configuring these variables for local, staging, and production environments:
+This project supports multiple environments, each with its specific configuration. Follow these steps to set up the environment variables for local, staging, and production:
 
-1. Create .env files for each environment: These files store environment-specific settings and should be created in the project root directory.
+1. **Create Environment Files**: In the root directory, create the following `.env` files to manage settings for different environments:
 
-2. Define variables for each environment:
+   - `.env`: Shared settings across environments.
+   - `.env.local`: Settings for local development (used when running tests locally).
+   - `.env.staging`: Settings for the staging environment, typically used for testing before production deployment.
+   - `.env.production`: Settings for production deployment.
 
-`.env`: For global settings that don’t change between environments.
-`.env.local`: Settings specific to local development. This is used when running tests locally.
-`.env.staging`: Settings for the staging environment, useful for testing in an environment similar to production.
-`.env.production`: Settings for production deployment.
+2. **Define Variables in Each File**: Add the required variables to each `.env` file. Here’s an example of typical configuration values:
 
-3. **_Sample Variables_** : Add the following variables based on your environment:
+   - **`.env`** (common settings):
 
-`.env`
+     ```plaintext
+     USER_NAME='USER'
+     PASSWORD='PASSWORD'
+     ```
 
-```
-USER_NAME='USER'
-PASSWORD='PASSWORD'
+   - **`.env.local`** (for local development):
 
-```
+     ```plaintext
+     BASE_URL=http://localhost:4000/fashionhub/
+     ```
 
-`.env.local:`
+   - **`.env.staging`** (for staging environment):
 
-```
-BASE_URL=http://localhost:4000/fashionhub/
-```
+     ```plaintext
+     BASE_URL=http://staging.example.com/fashionhub/
+     ```
 
-`.env.staging:`
+   - **`.env.production`** (for production environment):
+     ```plaintext
+     BASE_URL=http://production.example.com/fashionhub/
+     ```
 
-```
-BASE_URL=http://staging.yourdomain.com/fashionhub/
-```
-
-`.env.production:`
-
-```
-BASE_URL=https://yourdomain.com/fashionhub/
-```
-
-4. Using Environment Variables:
-
-The `NODE_ENV` environment variable determines which environment file is used when running tests.
-For example, running `npm run test:local` loads `.env.local` settings, while `npm run test:prod` loads .`env.production`.
+These environment-specific files allow the application to adapt to different environments without changing the code directly.
 
 **Note**: .env, .env.local, .env.staging and .env.production are listed in .gitignore to keep sensitive production data secure.
 
@@ -69,15 +62,11 @@ For example, running `npm run test:local` loads `.env.local` settings, while `np
 
 ### Local Execution
 
-To run tests locally, follow these steps:
+To start the Docker container, run the tests, and stop the container afterward, use the command:
 
-1. Ensure no previous containers of the application are running. You can stop existing containers with:
-
-`docker stop $(docker ps -q --filter ancestor=pocketaces2/fashionhub-demo-app:latest)`
-
-2. To start the Docker container, run the tests, and stop the container afterward, use the command:
-
-`npm run test:sequence`
+```
+npm run test:sequence
+```
 
 This command performs the following steps:
 
