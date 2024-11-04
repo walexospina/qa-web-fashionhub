@@ -1,4 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
+import { executeRequest } from "../../utils/apiRequestUtils";
+import { buildUrl } from "../../utils/urlBuider";
 
 type PullRequest = {
   title: string;
@@ -6,11 +8,7 @@ type PullRequest = {
   user: string;
 };
 
-const GITHUB_API_BASE_URL = "https://api.github.com";
-
-function buildPullRequestUrl(repo: string, page: number) {
-  return `${GITHUB_API_BASE_URL}/repos/${repo}/pulls?state=open&per_page=100&page=${page}`;
-}
+const GITHUB_API_BASE_URL = "https://api.github.com"; // normaly this url should be in .env file
 
 export async function fetchOpenPullRequests(
   apiRequest: APIRequestContext,
@@ -20,8 +18,13 @@ export async function fetchOpenPullRequests(
   let page = 1;
 
   while (true) {
-    const url = buildPullRequestUrl(repo, page);
-    const pullRequests = await fetchPage(apiRequest, url);
+    const url = buildUrl(GITHUB_API_BASE_URL, `/repos/${repo}/pulls`, {
+      state: "open",
+      per_page: 100,
+      page,
+    });
+    const response = await executeRequest(apiRequest, url, "get");
+    const pullRequests = await response.json();
 
     if (pullRequests.length === 0) break;
 
@@ -37,16 +40,4 @@ export async function fetchOpenPullRequests(
   }
 
   return allPullRequests;
-}
-
-async function fetchPage(apiRequest: APIRequestContext, url: string) {
-  const response = await apiRequest.get(url);
-
-  if (!response.ok()) {
-    throw new Error(
-      `Failed to fetch PRs: ${response.status()} ${response.statusText()}`
-    );
-  }
-
-  return response.json();
 }
