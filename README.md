@@ -101,14 +101,17 @@ NODE_ENV=production npx playwright test
 
 This command runs the tests against the environment configured as production in Playwright.
 
-## Project Structure
+### Running Tests by Tags
 
-tests/ui: Contains the automated test scripts.
-playwright.config.js: Playwright configuration for managing environments, browser settings, and other adjustments.
+This project supports running tests selectively by tags. Tags can be added to test cases to allow specific subsets of tests to be executed, such as smoke tests, regression tests, or API tests: **_Available Tags_**
 
-## Additional Notes
+- `@smoke`: For quick, essential checks. (TestCase1)
+- `@regression`: For comprehensive regression tests. (testCase1 and TesCase2)
+- `@api`: For API endpoint tests. (TestCase4)
 
-**Environment Variables**: Ensure necessary environment variables are set up for NODE_ENV and other parameters specific to Playwright and your application.
+```
+NODE_ENV=production npx playwright test --grep @smoke
+```
 
 ## Troubleshooting
 

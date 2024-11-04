@@ -3,7 +3,9 @@ import { fetchOpenPullRequests } from "../../api/request/apiGitHub";
 import fs from "fs";
 import path from "path";
 
-test("@api Fetch open pull requests and save to CSV", async ({ request }) => {
+test("@api Test Case 4 Fetch open pull requests and save to CSV", async ({
+  request,
+}) => {
   const pullRequests = await fetchOpenPullRequests(request);
 
   const csvContent =

@@ -9,7 +9,6 @@ export async function executeRequest(
   requestOptions: object = {}
 ) {
   try {
-    // Make the request using the specified HTTP method
     const response = await apiContext[method](requestUrl, requestOptions);
 
     if (!response.ok()) {
