@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { URLs } from "../../utils/urls";
+import NavigationMenu from "./navigationMenu";
 
 export class LoginPage {
   readonly page: Page;
@@ -8,6 +9,7 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly messagePanel: Locator;
   readonly signUpLink: Locator;
+  readonly navigationMenu: NavigationMenu;
 
   constructor(page: Page) {
     this.page = page;
@@ -16,6 +18,7 @@ export class LoginPage {
     this.loginButton = page.locator('input[value="Login"]');
     this.messagePanel = page.locator("#errorMessage");
     this.signUpLink = page.locator('a[href="#"]:text("Sign up")');
+    this.navigationMenu = new NavigationMenu(page);
   }
 
   async open() {
@@ -25,10 +28,12 @@ export class LoginPage {
   }
 
   async isPresent() {
-    this.userNameField.isEditable();
-    this.passwordField.isEditable();
-    this.loginButton.isVisible();
-    this.signUpLink.isVisible();
+    await this.userNameField.isEditable();
+    await this.passwordField.isEditable();
+    await this.loginButton.isVisible();
+    await this.signUpLink.isVisible();
+
+    await this.navigationMenu.isPresent();
   }
 
   async fillUserName(userName: string) {

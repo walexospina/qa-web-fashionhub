@@ -20,8 +20,8 @@ export class HomePage {
   }
 
   async isPresent() {
-    this.featuresSection.isVisible();
-    this.shopNowLink.isVisible();
+    await this.featuresSection.isVisible();
+    await this.shopNowLink.isVisible();
   }
 
   //todo this function could be moved place example utils/checks.ts
