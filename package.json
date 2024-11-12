@@ -7,7 +7,7 @@
   "start": "docker run -d -p 4000:4000 pocketaces2/fashionhub-demo-app:latest",
   "stop-docker": "docker stop $(docker ps -q --filter ancestor=pocketaces2/fashionhub-demo-app:latest)",
   "test:local": "NODE_ENV=local npx playwright test",
-  "test:sequence": "npm run start && npm run test:local && npm run stop-docker",
+  "test:sequence": "npm run start && npm run test:local ; npm run stop-docker",
   "test:prod": "NODE_ENV=production npx playwright test",
   "test:api": "npx playwright test --grep @api --project=chromium-*"
   },
