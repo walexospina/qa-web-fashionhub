@@ -7,7 +7,7 @@ test.describe("Link Status Verification via API", () => {
     await homePage.open();
     const links = await homePage.page.locator("a[href]").all();
 
-    for (const link of links) {
+    const checkLinks = links.map(async (link) => {
       const url = await link.getAttribute("href");
       if (url) {
         try {
@@ -18,6 +18,8 @@ test.describe("Link Status Verification via API", () => {
       } else {
         console.warn("Invalid URL encountered");
       }
-    }
+    });
+
+    await Promise.all(checkLinks);
   });
 });
