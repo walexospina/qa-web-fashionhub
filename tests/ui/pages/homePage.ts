@@ -1,4 +1,4 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator, expect } from "@playwright/test";
 import { URLs } from "../../utils/urls";
 
 export class HomePage {
@@ -29,12 +29,8 @@ export class HomePage {
     const response = await page.request.fetch(url);
     const status = response.status();
 
-    if (status >= 400) {
-      console.error(`❌ Failed URL: ${url} with status: ${status}`);
-      throw new Error(`Unexpected 40x status code: ${status} for URL: ${url}`);
-    } else {
-      console.log(`✅ URL passed: ${url} with status: ${status}`);
-    }
+    expect(status).toBeLessThan(400);
+    console.log(`✅ URL passed: ${url} with status: ${status}`);
   }
 }
 
