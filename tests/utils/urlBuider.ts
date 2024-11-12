@@ -1,7 +1,7 @@
 export function buildUrl(
   baseUrl: string,
   path: string,
-  queryParams: Record<string, any> = {}
+  queryParams: Record<string, string | number | boolean> = {}
 ): string {
   const url = new URL(path, baseUrl);
 
